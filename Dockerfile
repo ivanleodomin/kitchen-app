@@ -20,10 +20,14 @@ USER node
 # Create app directory
 WORKDIR /usr/src/app
 
+USER root
+
 # Install app dependencies
 COPY package.json yarn.lock ./
 
 RUN yarn install --production
+
+USER node
 
 COPY --from=builder /usr/src/app/build ./build
 
