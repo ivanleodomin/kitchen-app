@@ -19,7 +19,11 @@ jobs:
       token: ${{secrets.DIGITALOCEAN_ACCESS_TOKEN}}
     
   - name: Delete previous images
-    run: doctl registry repository delete-tag ${REGISTRY_NAME}/restaurant-app --tag '*'
+    run: |
+      TAGS=$(doctl registry repository list-tags ${REGISTRY_NAME}/restaurant-app -o json | jq -r '.[] | .Tag')
+      for TAG in $TAGS; do
+        doctl registry repository delete-tag ${REGISTRY_NAME}/restaurant-app $TAG --force
+      done
 
   - name: Build container image
     run: docker build -t ${{secrets.REGISTRY_NAME}}/restaurant-app:$(echo $GITHUB_SHA | head -c7) .
