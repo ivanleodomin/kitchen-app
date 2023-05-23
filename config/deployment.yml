@@ -4,7 +4,7 @@ metadata:
   name: kitchen-app
 spec:
   selector:
-    app: dashboard-service
+    app: kitchen-app
   ports:
     - port: 3000
       targetPort: 3000
@@ -17,7 +17,7 @@ metadata:
   labels:
     app: kitchen-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: kitchen-app
