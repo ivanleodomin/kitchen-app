@@ -25,7 +25,7 @@ export default class App {
 
 		this.routes(routes);
 
-		this.app.get('/status', (_, res) => res.status(200).send('Running'));
+		this.app.get('/status', (_, res) => res.status(200).send('Running!'));
 	}
 
 	/**
