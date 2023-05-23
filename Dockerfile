@@ -23,7 +23,7 @@ WORKDIR /usr/src/app
 # Install app dependencies
 COPY package.json yarn.lock ./
 
-RUN yarn install --production
+RUN sudo yarn install --production
 
 COPY --from=builder /usr/src/app/build ./build
 
