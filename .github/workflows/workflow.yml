@@ -17,6 +17,10 @@ jobs:
     uses: digitalocean/action-doctl@v2
     with:
       token: ${{secrets.DIGITALOCEAN_ACCESS_TOKEN}}
+    
+  - name: Delete previous images
+    run: doctl registry repository delete ${REGISTRY_NAME}/restaurant-app --force
+    
   - name: Build container image
     run: docker build -t ${{secrets.REGISTRY_NAME}}/restaurant-app:$(echo $GITHUB_SHA | head -c7) .
 
