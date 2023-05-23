@@ -32,4 +32,4 @@ USER node
 COPY --from=builder /usr/src/app/build ./build
 
 EXPOSE 3000
-CMD [ "node", "build/index.js" ]
+CMD [ "yarn", "start" ]
