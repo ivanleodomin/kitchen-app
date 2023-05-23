@@ -12,7 +12,7 @@ config.path = process.env.API_PATH || '/api';
 
 for (let key in config) {
 	if (!config[key]) {
-		throw new Error(`${key} variable not defined. App not to start`);
+		throw new Error(`${key} variable not defined. App not to start!`);
 	}
 }
 
