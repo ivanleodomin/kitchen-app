@@ -3,6 +3,7 @@ import OrderService from "../../../Aplication/OrderService";
 import { BaseController } from "./base.controller";
 import { ErrorResponse, Locals } from "../types";
 import { NextFunction, Request, Response } from "express";
+import { OrderPage } from "../../../Domain/repositories/orderRepository";
 
 
 export default class OrdersController extends BaseController {
@@ -70,5 +71,28 @@ export default class OrdersController extends BaseController {
 
         res.locals = { status, data }
         return next()
+    }
+
+    async getOrders(req: Request, res: Response, next: NextFunction): Promise<void> {
+        const { page } = req.params
+
+        let status: number
+        let data: OrderPage | ErrorResponse
+
+        try {
+            if (!page) {
+                throw new Error("page is required")
+            }
+
+            data = await this.orderService.getOrders(Number(page))
+            status = 200
+        } catch (err) {
+            data = { error: this.getError(err) }
+            status = 400
+        }
+
+        res.locals = { status, data }
+        return next()
+
     }
 }

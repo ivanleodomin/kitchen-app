@@ -16,13 +16,18 @@ export default class IOrderRepository implements OrderRepository {
         return order
     };
 
-    async getAll(filter: FilterQuery<Order> = {}, page: number = 1, skip: number = 0, limit: number = 10): Promise<OrderPage> {
+    async getAll(filter: FilterQuery<Order> = {}, page: number = 1, limit: number = 10): Promise<OrderPage> {
 
-        const totalPages = await OrderModel.countDocuments(filter)
-        const orders = await OrderModel.find(filter).skip(skip).limit(limit)
+        const totals = await OrderModel.countDocuments(filter)
+        const orders = await OrderModel
+            .find(filter)
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .populate('recipe')
+
         return {
             records: orders,
-            totalPages: totalPages,
+            totalPages: Math.ceil(totals / limit),
             perPage: limit,
             currentPage: page
         }

@@ -6,9 +6,13 @@ import RecipeModel from "../database/collections/Recipe";
 
 export default class IRecipeRepository implements RecipeRepository {
 
-    async getAll(filter: FilterQuery<Recipe> = {}, page: number = 1, skip: number = 0, limit: number = 10): Promise<RecipePage> {
+    async getAll(filter: FilterQuery<Recipe> = {}, page: number = 1, limit: number = 10): Promise<RecipePage> {
         const totalPages = await RecipeModel.countDocuments(filter)
-        const recipes = await RecipeModel.find(filter).skip(skip).limit(limit)
+        const recipes = await RecipeModel
+            .find(filter)
+            .skip((page - 1) * limit)
+            .limit(limit)
+            
         return {
             records: recipes,
             totalPages: totalPages,

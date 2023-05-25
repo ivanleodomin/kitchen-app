@@ -1,18 +1,18 @@
 import Order, { OrderStatus } from "../Domain/entities/Order";
 import Recipe from "../Domain/entities/Recipe";
-import OrderRepository from "../Domain/repositories/orderRepository";
-import RecipeRepository from "../Domain/repositories/recipeRepository";
+import OrderRepository, { OrderPage } from "../Domain/repositories/orderRepository";
 import WarehouseRepository from "../Domain/repositories/warehouseRepository";
+import RecipeService from "./RecipesService";
 
 export default class OrderService {
     constructor(
         private orderRepository: OrderRepository,
-        private recipeRepository: RecipeRepository,
-        private warehouseRepository: WarehouseRepository
+        private warehouseRepository: WarehouseRepository,
+        private recipeService: RecipeService,
     ) { }
 
     public async createOrder(): Promise<Order> {
-        const recipe = await this.getRecipe();
+        const recipe = await this.recipeService.getRandomRecipe();
         const order = this.orderRepository.register(recipe)
         return order
     }
@@ -58,15 +58,7 @@ export default class OrderService {
         return order;
     }
 
-    private async getRecipe(): Promise<Recipe> {
-        const totalRecipes = await this.recipeRepository.getTotals();
-
-        if (!totalRecipes) {
-            throw new Error("No recipes available")
-        }
-
-        const skip = Math.floor(Math.random() * totalRecipes);
-        const recipe = await this.recipeRepository.getAll({}, 1, skip, 1);
-        return recipe.records[0]
+    public getOrders(page: number): Promise<OrderPage> {
+        return this.orderRepository.getAll({}, page)
     }
 }

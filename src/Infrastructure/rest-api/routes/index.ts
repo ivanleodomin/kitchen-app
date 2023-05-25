@@ -1,3 +1,4 @@
-import ordersRouter from "./orders" 
+import ordersRouter from "./orders"
+import recipesRouter from "./recipes"
 
-export default [ordersRouter];
+export default [ordersRouter, recipesRouter];
