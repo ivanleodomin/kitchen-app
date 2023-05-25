@@ -1,5 +1,6 @@
 export default interface Ingredient {
-	id: string;
+	id: any;
 	name: string;
-	counters: number;
+	icon: string
+	quantity: number;
 }

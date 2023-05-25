@@ -1,3 +1,7 @@
+import connectDB from './Infrastructure/database/conection';
 import app from './Infrastructure/rest-api/';
 
-app.listen();
+(async () => {
+    await connectDB()
+    app.listen();
+})()
