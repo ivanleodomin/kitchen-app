@@ -6,7 +6,11 @@ export type Middleware = (
 	next: NextFunction
 ) => void;
 
-export interface Locals {
-	data: string;
+export interface Locals<T> {
+	data: T;
 	status: number;
+}
+
+export interface ErrorResponse {
+	error: string;
 }

@@ -6,9 +6,14 @@ type Config = {
 
 const config: Config = {};
 
-config.envioroment = process.env.ENVIRONMENT || 'development';
 config.port = process.env.PORT || '3000';
 config.path = process.env.API_PATH || '/api';
+
+if (process.env.NODE_ENV == 'DEV') {
+	config.mongodbUri = process.env.MONGODB_URI_DEV!
+} else if (process.env.NODE_ENV  == 'PROD') {
+	config.mongodbUri = process.env.MONGODB_URI_PROD!
+}
 
 for (let key in config) {
 	if (!config[key]) {

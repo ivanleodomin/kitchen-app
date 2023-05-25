@@ -1,5 +1,5 @@
-import express, {Application} from 'express';
-import {Middleware} from './types';
+import express, { Application } from 'express';
+import { Middleware } from './types';
 
 /**
  * Primary Class that constructs all of the parts of the Express server
@@ -15,8 +15,8 @@ export default class App {
 	 */
 	constructor(
 		private port: number | string,
-		middleware: Array<Middleware>,
-		routes: Array<express.Router>,
+		middleware: Middleware[],
+		routes: express.Router[],
 		private apiPath: string
 	) {
 		this.app = express();
@@ -45,7 +45,7 @@ export default class App {
 	 * Attaches route objects to app, appending routes to `apiPath`
 	 * @param routes Array of router objects to be attached to the app
 	 */
-	private routes(routes: Array<express.Router>) {
+	private routes(routes: express.Router[]) {
 		routes.forEach(r => {
 			this.app.use(`${this.apiPath}`, r);
 		});
