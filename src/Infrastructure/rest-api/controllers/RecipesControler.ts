@@ -10,7 +10,6 @@ export default class RecipeController extends BaseController {
         super()
     }
 
-
     async getRecipes(req: Request, res: Response, next: NextFunction): Promise<void> {
         const { page } = req.params
 

@@ -4,8 +4,8 @@
  * be exported in the array in the order you want them to
  * be executed.
  */
-
 import json from './express-json';
 import morgan from './morgan';
+import cors from './cors';
 
-export default [morgan, json];
+export default [cors, morgan, json];
