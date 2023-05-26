@@ -1,5 +1,8 @@
 import mongoose from "mongoose";
 import config from "../../config";
+import "./collections/Ingredients";
+import "./collections/Recipe";
+import "./collections/Orders";
 
 async function connectDB(): Promise<void> {
 	try {

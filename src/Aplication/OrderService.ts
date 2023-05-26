@@ -19,7 +19,6 @@ export default class OrderService {
 
     public async prepareOrder(orderId: string): Promise<Order> {
         const order = await this.validateOrder(orderId, [OrderStatus.QUEUED, OrderStatus.WAITING])
-
         const inStock = await this.warehouseRepository.validStockIngredients(order.recipe.ingredients)
         const status = inStock ? OrderStatus.PREPARING : OrderStatus.WAITING
 
@@ -58,7 +57,13 @@ export default class OrderService {
         return order;
     }
 
-    public getOrders(page: number): Promise<OrderPage> {
-        return this.orderRepository.getAll({}, page)
+    public getOrders(page: number, status?: string[]): Promise<OrderPage> {
+        let filter: any = {}
+        
+        if (status && Array.isArray(status)) {
+            filter.status = { $in: status }
+        }
+
+        return this.orderRepository.getAll(filter, page)
     }
 }

@@ -107,7 +107,7 @@ const ingredients = [
     },
     {
         name: "ketchup",
-        icon: "🍅",
+        icon: "🥫",
         quantity: 5
     },
     {

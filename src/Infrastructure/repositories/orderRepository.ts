@@ -36,7 +36,17 @@ export default class IOrderRepository implements OrderRepository {
 
     async getById(id: string): Promise<Order | null> {
         try {
-            return await OrderModel.findOne({ _id: id }).populate('recipe')
+            return await OrderModel
+                .findOne({ _id: id })
+                .populate({
+                    path: 'recipe',
+                    populate: {
+                        path: "ingredients.ingredient",
+                        model: "ingredient"
+                    }
+                })
+
+
         } catch (err) {
             console.log("Order not found")
             return null

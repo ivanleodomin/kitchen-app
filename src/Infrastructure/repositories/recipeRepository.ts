@@ -12,6 +12,7 @@ export default class IRecipeRepository implements RecipeRepository {
             .find(filter)
             .skip((page - 1) * limit)
             .limit(limit)
+            .populate('ingredients.ingredient')
             
         return {
             records: recipes,

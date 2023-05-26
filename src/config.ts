@@ -11,8 +11,10 @@ config.path = process.env.API_PATH || '/api';
 
 if (process.env.NODE_ENV == 'DEV') {
 	config.mongodbUri = process.env.MONGODB_URI_DEV!
-} else if (process.env.NODE_ENV  == 'PROD') {
+	config.warehouseUrl = process.env.WAREHOUSE_URL_DEV!
+} else if (process.env.NODE_ENV == 'PROD') {
 	config.mongodbUri = process.env.MONGODB_URI_PROD!
+	config.warehouseUrl = process.env.WAREHOUSE_URL_PROD!
 }
 
 for (let key in config) {
