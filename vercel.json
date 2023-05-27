@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "yarn build",
+      "use": "@vercel/static-build",
+      "config": {
+        "root": "path/to/build/directory"
+      }
+    },
+    {
+      "src": "yarn start",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "yarn start"
+    }
+  ]
+}
