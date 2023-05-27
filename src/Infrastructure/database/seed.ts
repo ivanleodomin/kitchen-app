@@ -30,7 +30,7 @@ async function seedDb(): Promise<void> {
 
         console.log('Data saved');
     } catch (error) {
-        console.error('Error in seed', error);
+        console.error('Error in seed db', error);
     }
 };
 
